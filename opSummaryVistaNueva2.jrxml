@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="opSummaryVistaNueva2" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="docNumber" class="java.lang.String">
+		<defaultValueExpression><![CDATA["22622839"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="perOpago" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[new Integer(200602)]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ES_DENO, (case when TIPO_ORG_INT is null then TIPO_ORG when TIPO_ORG_INT is not null then TIPO_ORG_INT end ) tipo_org_ord,
+ (case when DISTRITO_INT is null then DISTRITO when DISTRITO_INT is not null then DISTRITO_INT end ) distrito_ord,
+       NUMERO,DISTRITO,TIPO_ORG,
+       NUMERO_INT,DISTRITO_INT,TIPO_ORG_INT,
+       RURAL,RURAL_INT,DOB_ESCOL_ESTAB,
+       DOB_ESCOL_ESTAB_INT,TURNOS,TURNOS_INT,
+       SECU,SUM(LIQUIDO) PESOS, CCTICAS, SECCIONES,
+       SECCIONES_INT, HS,HS_INT, CCTICAS_INT, REV, CAT, CAT_INT
+FROM DGE.V_INFOCHEQ
+WHERE PER_OPAGO = $P{perOpago} AND DOCU = $P{docNumber}
+GROUP BY  ES_DENO, TIPO_ORG, NUMERO,DISTRITO,
+       NUMERO_INT,DISTRITO_INT,TIPO_ORG_INT,
+       RURAL,RURAL_INT,DOB_ESCOL_ESTAB,
+       DOB_ESCOL_ESTAB_INT,TURNOS,TURNOS_INT,
+       SECU,CCTICAS, SECCIONES,
+       SECCIONES_INT, HS,HS_INT, CCTICAS_INT, REV, CAT ,CAT_INT
+ORDER BY distrito_ord,tipo_org_ord,secu,numero]]>
+	</queryString>
+	<field name="ES_DENO" class="java.lang.String"/>
+	<field name="TIPO_ORG_ORD" class="java.lang.String"/>
+	<field name="DISTRITO_ORD" class="java.lang.Integer"/>
+	<field name="NUMERO" class="java.lang.Integer"/>
+	<field name="DISTRITO" class="java.lang.Integer"/>
+	<field name="TIPO_ORG" class="java.lang.String"/>
+	<field name="NUMERO_INT" class="java.lang.Integer"/>
+	<field name="DISTRITO_INT" class="java.lang.Integer"/>
+	<field name="TIPO_ORG_INT" class="java.lang.String"/>
+	<field name="RURAL" class="java.lang.Integer"/>
+	<field name="RURAL_INT" class="java.lang.Integer"/>
+	<field name="DOB_ESCOL_ESTAB" class="java.lang.Integer"/>
+	<field name="DOB_ESCOL_ESTAB_INT" class="java.lang.Integer"/>
+	<field name="TURNOS" class="java.lang.Integer"/>
+	<field name="TURNOS_INT" class="java.lang.Integer"/>
+	<field name="SECU" class="java.lang.Integer"/>
+	<field name="PESOS" class="java.math.BigDecimal"/>
+	<field name="CCTICAS" class="java.lang.String"/>
+	<field name="SECCIONES" class="java.lang.Integer"/>
+	<field name="SECCIONES_INT" class="java.lang.Integer"/>
+	<field name="HS" class="java.math.BigDecimal"/>
+	<field name="HS_INT" class="java.math.BigDecimal"/>
+	<field name="CCTICAS_INT" class="java.lang.String"/>
+	<field name="REV" class="java.lang.String"/>
+	<field name="CAT" class="java.lang.String"/>
+	<field name="CAT_INT" class="java.lang.String"/>
+	<group name="estab">
+		<groupExpression><![CDATA[$F{TIPO_ORG_ORD}]]></groupExpression>
+		<groupHeader>
+			<band height="47" splitType="Stretch">
+				<rectangle radius="0">
+					<reportElement key="rectangle-2" mode="Opaque" x="6" y="8" width="261" height="11" forecolor="#FFFFFF" backcolor="#E6E7E8"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.0" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="39" y="8" width="183" height="10"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Características del establecimiento]]></text>
+				</staticText>
+				<rectangle radius="0">
+					<reportElement key="rectangle-2" mode="Opaque" x="281" y="8" width="299" height="11" forecolor="#FFFFFF" backcolor="#E6E7E8"/>
+					<graphicElement fill="Solid">
+						<pen lineWidth="0.0" lineStyle="Solid"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="314" y="8" width="183" height="10"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Características del establecimiento interino]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="7" y="22" width="40" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estab.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="45" y="22" width="31" height="11" forecolor="#000000" backcolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Categ.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="78" y="22" width="38" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Desf.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="116" y="22" width="36" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Secc.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="150" y="22" width="41" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Es carcel]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="191" y="22" width="40" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Doble esc.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="234" y="22" width="33" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Turnos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="282" y="22" width="40" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estab.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="324" y="22" width="41" height="11" forecolor="#000000" backcolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Categ.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="368" y="22" width="41" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Desfab.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="411" y="22" width="33" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Secc.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="447" y="22" width="49" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Es carcel]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="498" y="22" width="48" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Doble esc.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="549" y="22" width="37" height="11" forecolor="#000000"/>
+					<textElement>
+						<font size="6" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Turnos]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-118" mode="Transparent" x="25" y="35" width="16" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{NUMERO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="38" y="34" width="31" height="9" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" "]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" mode="Transparent" x="68" y="34" width="37" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{RURAL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" mode="Transparent" x="108" y="34" width="34" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{SECCIONES}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" mode="Transparent" x="142" y="34" width="41" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{CCTICAS}.indexOf("P") >= 0) ? "S" : "N"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" mode="Transparent" x="182" y="34" width="39" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{CCTICAS}.contains("C")) ? "S" : "N"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" mode="Transparent" x="226" y="34" width="33" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{TURNOS}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-118" mode="Transparent" x="306" y="34" width="16" height="9" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{NUMERO_INT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-118" mode="Transparent" x="280" y="34" width="24" height="9" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO_ORG_INT}+ "-"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="320" y="35" width="41" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" "]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="362" y="35" width="41" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{RURAL_INT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="404" y="35" width="33" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{SECCIONES_INT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="438" y="35" width="49" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{CCTICAS_INT}.indexOf("P") >= 0) ? "S" : "N"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="488" y="35" width="50" height="9" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[($F{CCTICAS_INT}.contains("C")) ? "S" : "N"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-125" stretchType="RelativeToBandHeight" mode="Transparent" x="540" y="35" width="35" height="10" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{TURNOS_INT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-118" mode="Transparent" x="11" y="35" width="13" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{TIPO_ORG}+ "-"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="285" y="35" width="13" height="8">
+						<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{DISTRITO_INT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement key="element-118" mode="Transparent" x="-3" y="35" width="13" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+						<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{DISTRITO}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="17" splitType="Stretch">
+				<line>
+					<reportElement x="8" y="5" width="578" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="18">
+			<rectangle radius="0">
+				<reportElement key="rectangle-2" mode="Opaque" x="386" y="3" width="199" height="9" forecolor="#FFFFFF" backcolor="#E6E7E8"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="element-121" mode="Transparent" x="185" y="2" width="31" height="9" printWhenGroupChanges="estab" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="SansSerif" size="6" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{HS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="element-121" mode="Transparent" x="66" y="3" width="31" height="9" printWhenGroupChanges="estab" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
+					<font fontName="SansSerif" size="6" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[($F{REV}.equals("T") ? "TIT." : ($F{REV}.equals("P") ? "PROV." : (($F{REV}.equals("S") ? "SUP." : (($F{REV}.equals("R") ? "REEMP." : (($F{REV}.equals("M") ? "MENS." :(($F{REV}.equals("D") ? "DEST." :(($F{REV}.equals("E") ? "SIN EST." : "OTRO"))))))))))))]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="element-121" mode="Transparent" x="120" y="3" width="28" height="9" printWhenGroupChanges="estab" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
+					<font fontName="SansSerif" size="6" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CAT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="44" y="3" width="34" height="9" printWhenGroupChanges="estab"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REVISTA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="3" width="48" height="9" printWhenGroupChanges="estab" forecolor="#000000"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C. REAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="3" width="47" height="9" printWhenGroupChanges="estab" forecolor="#000000"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C. HORARIA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="215" y="3" width="41" height="9" printWhenGroupChanges="estab"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apoyo real]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="3" width="33" height="9" printWhenGroupChanges="estab"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEC:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="23" y="3" width="23" height="9" printWhenGroupChanges="estab"/>
+				<textElement>
+					<font size="6" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{SECU}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="395" y="4" width="60" height="9"/>
+				<textElement>
+					<font size="6" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="3" width="100" height="9">
+					<printWhenExpression><![CDATA[new Boolean($F{ES_DENO}.equals("0"))]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="7" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{PESOS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="3" width="36" height="10"/>
+				<textElement>
+					<font size="6" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Apoyo int]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="3" width="42" height="10"/>
+				<textElement>
+					<font size="6" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Cargo Int]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="313" y="3" width="46" height="10">
+					<printWhenExpression><![CDATA[new Boolean($F{DISTRITO_INT} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6" isBold="true" pdfFontName="Helvetica-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{CAT_INT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
